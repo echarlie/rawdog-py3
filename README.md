@@ -1,5 +1,20 @@
-rawdog: RSS Aggregator Without Delusions Of Grandeur
-Adam Sampson <ats@offog.org>
+# rawdog: RSS Aggregator Without Delusions Of Grandeur
+
+ - Original work by Adam Sampson <ats@offog.org>
+ - Python 3 porting by echarlie <echarlie@vtluug.org>
+
+This is a very lazy Python 3 port of the original
+[rawdog](https://offog.org/code/rawdog/), because pip for python2 isn't
+available on Debian 11, and I wasn't going to be bothered to migrate my
+newsfeed to a different tool. I ran 2to3, played swapped `cgi.encode` for
+`html.encode`, and fixed some of the abuse of string types and encodings that
+are less-necessary as py3 is UTF-8-by-default. Things may work for you, or not;
+I've not tested any plugins (they'd need to be ported to py3 as well), because
+I don't use any.
+
+I've haphazardly incremented the version to `3.0`. This seems appropriate.
+
+---
 
 rawdog is a feed aggregator, capable of producing a personal "river of
 news" or a public "planet" page. It supports all common feed formats,
@@ -12,7 +27,7 @@ behaviour is highly customisable using plugins written in Python.
 
 rawdog has the following dependencies:
 
-- Python 2.7 or later (but not Python 3)
+- Python 3
 - feedparser 5.1.2 or later
 - PyTidyLib 0.2.1 or later (optional but strongly recommended)
 
