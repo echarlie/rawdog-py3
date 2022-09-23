@@ -6,7 +6,7 @@
 This is a very lazy Python 3 port of the original
 [rawdog](https://offog.org/code/rawdog/), because pip for python2 isn't
 available on Debian 11, and I wasn't going to be bothered to migrate my
-newsfeed to a different tool. I ran 2to3, played swapped `cgi.encode` for
+newsfeed to a different tool. I ran 2to3, swapped `cgi.encode` for
 `html.encode`, and fixed some of the abuse of string types and encodings that
 are less-necessary as py3 is UTF-8-by-default. Things may work for you, or not;
 I've not tested any plugins (they'd need to be ported to py3 as well), because

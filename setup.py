@@ -1,18 +1,18 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from distutils.core import setup
 import sys
 
-if sys.version_info < (2, 7) or sys.version_info >= (3,):
-	print("rawdog requires Python 2.7 or later, and not Python 3.")
+if sys.version_info != (3, ):
+	print("rawdog requires Python 3.")
 	sys.exit(1)
 
 setup(name="rawdog",
-	version="2.23",
-	description="RSS Aggregator Without Delusions Of Grandeur",
-	author="Adam Sampson",
-	author_email="ats@offog.org",
-	url="http://offog.org/code/rawdog/",
+	version="3.0",
+	description="RSS Aggregator Without Delusions Of Grandeur - python3 port",
+	author="echarlie",
+	author_email="echarlie@vtluug.org",
+	url="https://github.com/echarlie/rawdog-py3"
 	scripts=['rawdog'],
 	data_files=[('share/man/man1', ['rawdog.1'])],
 	packages=['rawdoglib'],
@@ -21,6 +21,6 @@ setup(name="rawdog",
 		"Environment :: Console",
 		"License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
 		"Operating System :: POSIX",
-		"Programming Language :: Python :: 2",
+		"Programming Language :: Python :: 3",
 		"Topic :: Internet :: WWW/HTTP",
 	])
