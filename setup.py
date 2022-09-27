@@ -10,7 +10,7 @@ setup(name="rawdog",
 	url="https://github.com/echarlie/rawdog-py3",
 	scripts=['rawdog'],
 	data_files=[('share/man/man1', ['rawdog.1'])],
-    python_requires='>=3',
+	python_requires='>=3',
 	packages=['rawdoglib'],
 	classifiers=[
 		"Development Status :: 5 - Production/Stable",
