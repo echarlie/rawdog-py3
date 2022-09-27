@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 
 from distutils.core import setup
-import sys
-
-if sys.version_info <= (3, ):
-	print("rawdog requires Python 3.")
-	sys.exit(1)
 
 setup(name="rawdog",
 	version="3.0",
@@ -15,6 +10,7 @@ setup(name="rawdog",
 	url="https://github.com/echarlie/rawdog-py3",
 	scripts=['rawdog'],
 	data_files=[('share/man/man1', ['rawdog.1'])],
+    python_requires='>=3',
 	packages=['rawdoglib'],
 	classifiers=[
 		"Development Status :: 5 - Production/Stable",
