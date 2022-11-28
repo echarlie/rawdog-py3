@@ -32,7 +32,7 @@ rawdog has the following dependencies:
 - PyTidyLib 0.2.1 or later (optional but strongly recommended)
 
 To install rawdog on your system, use distutils -- "python setup.py
-install". This will install the "rawdog" command and the "rawdoglib"
+install". This will install feedparser, the "rawdog" command, and the "rawdoglib"
 Python module that it uses internally. (If you want to install to a
 non-standard prefix, read the help provided by "python setup.py install
 --help".)

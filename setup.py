@@ -15,6 +15,7 @@ setup(name="rawdog",
 	url="https://github.com/echarlie/rawdog-py3"
 	scripts=['rawdog'],
 	data_files=[('share/man/man1', ['rawdog.1'])],
+	install_requires=['feedparser'],
 	packages=['rawdoglib'],
 	classifiers=[
 		"Development Status :: 5 - Production/Stable",
