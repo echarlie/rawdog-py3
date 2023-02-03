@@ -54,9 +54,9 @@ except:
 
 # The sanitisation code was restructured in feedparser 5.3.
 try:
-	_resolveRelativeURIs = feedparser.urls._resolveRelativeURIs
+	_resolveRelativeURIs = feedparser.urls.resolve_relative_uris
 except AttributeError:
-	_resolveRelativeURIs = feedparser._resolveRelativeURIs
+	_resolveRelativeURIs = feedparser.resolve_relative_uris
 try:
 	_HTMLSanitizer = feedparser.sanitizer._HTMLSanitizer
 except AttributeError:
