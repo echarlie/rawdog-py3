@@ -28,48 +28,48 @@ behaviour is highly customisable using plugins written in Python.
 rawdog has the following dependencies:
 
 - Python 3
-- feedparser 5.1.2 or later
+- feedparser 5.1.2, less than 6.0
 - PyTidyLib 0.2.1 or later (optional but strongly recommended)
 
-To install rawdog on your system, use distutils -- "python setup.py
-install". This will install the "rawdog" command and the "rawdoglib"
-Python module that it uses internally. (If you want to install to a
-non-standard prefix, read the help provided by "python setup.py install
---help".)
+To install rawdog on your system, use setuptools -- `python setup.py
+install`. This will install feedparser, the `rawdog` command, and the
+`rawdoglib` Python module that it uses internally. (If you want to install to a
+non-standard prefix, read the help provided by
+`python setup.py install --help`.)
 
-rawdog needs a config file to function. Make the directory ".rawdog" in
-your $HOME directory, copy the provided file "config" into that
+rawdog needs a config file to function. Make the directory `.rawdog` in
+your $HOME directory, copy the provided file `config` into that
 directory, and edit it to suit your preferences. Comments in that file
 describe what each of the options does.
 
-You should copy the provided file "style.css" into the same directory
+You should copy the provided file `style.css` into the same directory
 that you've told rawdog to write its HTML output to. rawdog should be
 usable from a browser that doesn't support CSS, but it won't be very
 pretty.
 
 When you invoke rawdog from the command line, you give it a series of
-actions to perform -- for instance, "rawdog --update --write" tells it
-to do the "--update" action (downloading articles from feeds), then the
-"--write" action (writing the latest articles it knows about to the HTML
+actions to perform -- for instance, `rawdog --update --write` tells it
+to do the `--update` action (downloading articles from feeds), then the
+`--write` action (writing the latest articles it knows about to the HTML
 file).
 
 For details of all rawdog's actions and command-line options, see the
 rawdog(1) man page -- "man rawdog" after installation.
 
-You will want to run "rawdog -uw" periodically to fetch data and write
+You will want to run `rawdog -uw` periodically to fetch data and write
 the output file. The easiest way to do this is to add a crontab entry
 that looks something like this:
 
 0,10,20,30,40,50 * * * *        /path/to/rawdog -uw
 
-(If you don't know how to use cron, then "man crontab" is probably a good
+(If you don't know how to use cron, then `man crontab` is probably a good
 start.) This will run rawdog every ten minutes.
 
 If you want rawdog to fetch URLs through a proxy server, then set your
-"http_proxy" environment variable appropriately; depending on your
+`http_proxy` environment variable appropriately; depending on your
 version of cron, putting something like:
 
-http_proxy=http://myproxy.mycompany.com:3128/
+    http_proxy=http://myproxy.mycompany.com:3128/
 
 at the top of your crontab should be appropriate. (The http_proxy
 variable will work for many other programs too.)
@@ -77,7 +77,7 @@ variable will work for many other programs too.)
 In the event that rawdog gets horribly confused (for instance, if your
 system clock has a huge jump and it thinks it won't need to fetch
 anything for the next thirty years), you can forcibly clear its state by
-removing the ~/.rawdog/state file (and the ~/.rawdog/feeds/*.state
+removing the `~/.rawdog/state` file (and the `~/.rawdog/feeds/*.state`
 files, if you've got the "splitstate" option turned on).
 
 If you don't like the appearance of rawdog, then customise the style.css
