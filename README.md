@@ -3,8 +3,9 @@
  - Original work by Adam Sampson <ats@offog.org>
  - Python 3 porting by echarlie <echarlie@vtluug.org>
 
-This is a very lazy Python 3 port of the original
-[rawdog](https://offog.org/code/rawdog/), because pip for python2 isn't
+
+This is a very lazy Python 3 port of the original [rawdog](https://offog.org/code/rawdog/), 
+and [plugins](https://offog.org/git/rawdog-plugins/) because pip for python2 isn't
 available on Debian 11, and I wasn't going to be bothered to migrate my
 newsfeed to a different tool. I ran 2to3, swapped `cgi.encode` for
 `html.encode`, and fixed some of the abuse of string types and encodings that
