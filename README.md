@@ -2,7 +2,7 @@
 
  - Original work by Adam Sampson <ats@offog.org>
  - Python 3 porting by echarlie <echarlie@vtluug.org>
-
+ - Plugin porting by blubeam <greenbeam@tutanota.com>
 
 This is a very lazy Python 3 port of the original [rawdog](https://offog.org/code/rawdog/), 
 and [plugins](https://offog.org/git/rawdog-plugins/) because pip for python2 isn't
@@ -74,6 +74,48 @@ version of cron, putting something like:
 
 at the top of your crontab should be appropriate. (The http_proxy
 variable will work for many other programs too.)
+
+---
+
+There are many plugins which are available, to install a plugin make sure 
+that you have `plugindirs plugin` in your config file, and copy the plugin
+into the .rawdog/plugins directory. 
+
+Here is a table of plugin Names, Maintainer (taken from [offogs site](offog.org) so 
+probably not active anymore) and Purpose:
+
+
+Name	Maintainer	Purpose
+archive	Adam Sampson	Write incoming articles in Atom format to a local archive (needs my atomwriter module)
+article-filter	Adam Sampson	Filter articles on a per-feed basis using regular expressions
+article-stats	Adam Sampson	Print counts of articles added, updated, expired and stored when rawdog exits
+author-no-link	Stephan Manske	Provide author with HTML removed for templates
+backwards	Adam Sampson	Example plugin: reverse the article sort order
+dated-output	Adam Sampson	Split output into dated files
+detwit	Adam Sampson	Remove prefixes from Twitter messages
+digest-auth	Adam Sampson	Add HTTP digest authentication support
+download-articles	Adam Sampson	Download copies of articles automatically
+enclosure	Virgil Bucoci	Display links to article enclosures
+feed-execute	Adam Sampson	Execute commands before or after fetching feeds
+feedgrep	Steve Atwell	Filter articles by regular expression
+feedgroup	Zephaniah E. Hull	Index articles by user-defined groups
+feedwise	Virgil Bucoci	Group articles by feed rather than by date
+imgstrip	Virgil Bucoci	Replace images with links
+inline_link	Brian Jaress	Provide data: links to long article descriptions
+links	TheCrypto	Add static links to rawdog's output
+ljkludge	Adam Sampson	Work around a bug in LiveJournal digest authentication
+paged-output	Adam Sampson	Split output into several smaller files (needs rawdog 2.5rc1 or later)
+printnew	Ted T	Send new articles by email
+rss	Jonathan Riddell	Export RSS, FOAF and OPML automatically for all feeds
+select-feeds	Adam Sampson	Select feeds to include in the output
+sidebarfeedwise	Gutemberg A. Vieira	Feed-grouped display with a sidebar
+since-last	Adam Sampson	When writing, only include articles that haven't previously been written
+slashdot	Virgil Bucoci	Display Slashdot's department lines in articles
+status-log	Adam Sampson	Keep and display a log of errors when fetching feeds
+tagcat	Decklin Foster	Organise feeds using user-defined tags
+truncate	Adam Sampson	Truncate and/or strip HTML markup from articles
+vellum-templates	Adam Sampson	Replace rawdog's templating system with the one from Vellum
+xml_archiver	BAM	Write rawdog's article database out as XML for external processing
 
 In the event that rawdog gets horribly confused (for instance, if your
 system clock has a huge jump and it thinks it won't need to fetch
