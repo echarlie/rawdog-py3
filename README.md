@@ -79,7 +79,7 @@ variable will work for many other programs too.)
 
 There are many plugins which are available, to install a plugin make sure 
 that you have `plugindirs plugin` in your config file, and copy the plugin
-into the .rawdog/plugins directory. 
+into the `.rawdog/plugins directory`. 
 
 Maintainers in the following table are most likely no longer active
 
@@ -115,6 +115,8 @@ tagcat|Decklin Foster|Organise feeds using user-defined tags
 truncate|Adam Sampson|Truncate and/or strip HTML markup from articles
 vellum-templates|Adam Sampson|Replace rawdog's templating system with the one from Vellum
 xml_archiver|BAM|Write rawdog's article database out as XML for external processing
+
+---
 
 In the event that rawdog gets horribly confused (for instance, if your
 system clock has a huge jump and it thinks it won't need to fetch
