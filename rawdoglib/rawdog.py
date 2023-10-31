@@ -313,8 +313,9 @@ def load_file(name):
 		file_cache[name] = data #.encode(get_system_encoding())
 	return file_cache[name]
 
-def write_file(f, s, config):
-	"""Write the string s, in UTF-8."""
+def write_ascii(f, s, config):
+	"""Write the string s, in UTF-8 not ascii. Name has been kept to not
+		break funcitonality."""
 	
 	f.write(s)
 
@@ -1786,11 +1787,11 @@ __feeditems__
 		s = fill_template(self.get_template(config, "page"), bits)
 		outputfile = config["outputfile"]
 		if outputfile == "-":
-			write_file(sys.stdout, s, config)
+			write_ascii(sys.stdout, s, config)
 		else:
 			config.log("Writing output file: ", outputfile)
 			f = open(outputfile + ".new", "w")
-			write_file(f, s, config)
+			write_ascii(f, s, config)
 			f.close()
 			os.rename(outputfile + ".new", outputfile)
 
