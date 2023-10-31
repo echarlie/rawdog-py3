@@ -54,9 +54,9 @@ except:
 
 # The sanitisation code was restructured in feedparser 5.3.
 try:
-	_resolveRelativeURIs = feedparser.urls._resolveRelativeURIs
+	_resolveRelativeURIs = feedparser.urls.resolve_relative_uris
 except AttributeError:
-	_resolveRelativeURIs = feedparser._resolveRelativeURIs
+	_resolveRelativeURIs = feedparser.resolve_relative_uris
 try:
 	_HTMLSanitizer = feedparser.sanitizer._HTMLSanitizer
 except AttributeError:
@@ -139,8 +139,8 @@ def sanitise_html(html, baseurl, inline, config):
 		args = {
 			"numeric_entities": 1,
 			# In tidy 0.99 these are ASCII; in tidy 5, UTF-8.
-			"input_encoding": "ascii",
-			"output_encoding": "ascii",
+			"input_encoding": "utf8",
+			"output_encoding": "utf8",
 			"output_html": 1,
 			"output_xhtml": 0,
 			"output_xml": 0,
@@ -313,15 +313,13 @@ def load_file(name):
 		file_cache[name] = data #.encode(get_system_encoding())
 	return file_cache[name]
 
-def write_ascii(f, s, config):
-	"""Write the string s, which should only contain ASCII characters, to
-	file f; if it isn't encodable in ASCII, then print a warning message
-	and write UTF-8."""
-	#try:
+def write_file(f, s, config):
+	"""Write the string s, in UTF-8."""
+	
 	f.write(s)
-	#except UnicodeEncodeError as e:
-		#config.bug("Error encoding output as ASCII; UTF-8 has been written instead.\n", e)
-		#f.write(s.encode("UTF-8"))
+
+def write_utf_8(f, s, config):
+	"""After failing to write ascii, use utf"""
 
 def short_hash(s):
 	"""Return a human-manipulatable 'short hash' of a string."""
@@ -1522,7 +1520,7 @@ class Rawdog(Persistable):
    "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta http-equiv="Content-Type" content="text/html">
     <meta name="robots" content="noindex,nofollow,noarchive">
 """
 			if config["userefresh"]:
@@ -1788,11 +1786,11 @@ __feeditems__
 		s = fill_template(self.get_template(config, "page"), bits)
 		outputfile = config["outputfile"]
 		if outputfile == "-":
-			write_ascii(sys.stdout, s, config)
+			write_file(sys.stdout, s, config)
 		else:
 			config.log("Writing output file: ", outputfile)
 			f = open(outputfile + ".new", "w")
-			write_ascii(f, s, config)
+			write_file(f, s, config)
 			f.close()
 			os.rename(outputfile + ".new", outputfile)
 
