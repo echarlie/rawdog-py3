@@ -9,7 +9,7 @@ from rawdoglib.rawdog import encode_references
 import smtplib
 import datetime
 
-from email.MIMEText import MIMEText
+from email.mime.text import MIMEText
 
 class Mailer:
 	"""email new articles"""
@@ -72,16 +72,16 @@ class Mailer:
 		##smtp.close()
 		#smtp.quit()
 
-  		SENDMAIL = "/usr/sbin/sendmail" # sendmail location
-  		import os
-  		p = os.popen("%s -t" % SENDMAIL, "w")
-  		#p.write("To: " + msg['To'] + "\n")
-  		#p.write("Subject: rawdog cmdline\n")
-  		#p.write("\n") # blank line separating headers from body
-  		p.write(msg.as_string())
-  		sts = p.close()
-  		#if sts != 0:
-      		#  print "Sendmail exit status", sts
+		SENDMAIL = "/usr/sbin/sendmail" # sendmail location
+		import os
+		p = os.popen("%s -t" % SENDMAIL, "w")
+		#p.write("To: " + msg['To'] + "\n")
+		#p.write("Subject: rawdog cmdline\n")
+		#p.write("\n") # blank line separating headers from body
+		p.write(msg.as_string())
+		sts = p.close()
+		#if sts != 0:
+			#  print "Sendmail exit status", sts
 
 		return True
 

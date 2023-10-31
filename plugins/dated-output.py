@@ -1,8 +1,9 @@
 """
 dated-output plugin for rawdog
 Copyright 2009 Adam Sampson <ats@offog.org>
+Modified 2023 for Python3 by blubeam <greenbeam@tutanota.com>
 
-Needs rawdog 2.5rc1 or later, and Python 2.5.
+Needs rawdog 2.5rc1 or later.
 
 Rather than writing a single output file, this plugin splits the output
 into several files by date. The "pagedateformat" strftime format is used
@@ -45,7 +46,7 @@ from io import StringIO
 def safe_strftime(obj, format):
 	"""Call the strftime method on an object, and convert the result to
 	ASCII-encoded HTML."""
-	u = str(obj.strftime(format), get_system_encoding())
+	u = obj.strftime(format) 
 	return encode_references(u)
 
 class DatedOutput:

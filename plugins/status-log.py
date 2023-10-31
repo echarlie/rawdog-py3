@@ -64,11 +64,7 @@ class StatusLogPlugin:
 		period = 12 * 60 * 60
 		division = 60 * 60
 		divs = period / division
-
 		starttime = time.time() - period
-		ts = list(time.localtime(starttime))
-		ts[3], ts[4], ts[5] = ts[3] + 1, 0, 0
-		starttime = time.mktime(ts)
 
 		try:
 			f = open(self.logfile)
@@ -93,7 +89,7 @@ class StatusLogPlugin:
 				pos = 0
 				f.seek(pos)
 				break
-			if int(l[:-1].split(" ", 2)[0]) < starttime:
+			if float(l[:-1].split(" ", 2)[0]) < starttime:
 				break
 		config.log("Starting to read logfile from ", pos)
 
@@ -104,11 +100,11 @@ class StatusLogPlugin:
 			if l == "":
 				break
 			(t, status, url) = l[:-1].split(" ", 2)
-			if t < starttime:
+			if float(t) < starttime:
 				continue
 
 			if url not in feeds:
-				feeds[url] = [(None, None, -1)] * divs
+				feeds[url] = [(None, None, -1)] * int(divs)
 			try:
 				n = int((int(t) - starttime) / division)
 			except ValueError:
@@ -139,7 +135,7 @@ class StatusLogPlugin:
    "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta http-equiv="Content-Type" content="text/html">
     <meta name="robots" content="noindex,nofollow,noarchive">
     <link rel="stylesheet" href="style.css" type="text/css">
     <title>rawdog feed status</title>
@@ -167,12 +163,12 @@ class StatusLogPlugin:
 				names[url] = url
 
 		urllist = list(feeds.keys())
-		urllist.sort(lambda a, b: cmp(names[a].lower(), names[b].lower()))
+		#urllist.sort(lambda a, b: cmp(names[a].lower(), names[b].lower()))
 		for url in urllist:
 			slots = feeds[url]
 
 			f.write("<tr>\n")
-			for i in range(divs):
+			for i in range(int(divs)):
 				(colour, status, val) = slots[i]
 				if val == -1:
 					f.write("<td></td>\n")

@@ -5,7 +5,7 @@
 #   http://offog.org/code/misccode.html
 
 import rawdoglib.plugins
-import atomwriter
+import rawdoglib.atomwriter
 import os, time, errno, traceback
 from pprint import pprint
 

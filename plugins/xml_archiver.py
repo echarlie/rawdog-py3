@@ -1,6 +1,6 @@
 # Copyright 2005 BAM
 
-import os, time, cgi
+import os, time
 import rawdoglib.plugins, rawdoglib.rawdog
 import libxml2
 
@@ -177,7 +177,7 @@ class XML_Archiver:
         entry_info = article.entry_info
         xml_article.setProp('id', article.hash)
         xml_article.setProp('feed', rawdog.feeds[article.feed].get_id(config))
-        xml_article.setProp('title', entry_info['title_raw'])
+        xml_article.setProp('title', entry_info['title'])
         xml_article.setProp('date', str(article.date))
         xml_article.setProp('last_seen', str(article.last_seen))
         xml_article.setProp('added', str(article.added))
@@ -189,7 +189,6 @@ class XML_Archiver:
                 content = content['value']
         elif 'summary_detail' in entry_info:
             content = entry_info['summary_detail']['value']
-        content = cgi.escape(content).encode('utf8', 'ignore')
         self.describe(xml_article, content)
 
         return True
