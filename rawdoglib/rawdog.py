@@ -1735,12 +1735,11 @@ __feeditems__
 		"""Write the feed list."""
 		bits = {}
 
-		feeds = [(feed.get_html_name(config).lower(), feed)
-		         for feed in list(self.feeds.values())]
-		feeds.sort()
+		feeds = list(self.feeds.values())
+		feeds.sort(key=lambda feed: feed.get_html_name(config).lower())
 
 		feeditems = StringIO()
-		for key, feed in feeds:
+		for feed in feeds:
 			self.write_feeditem(feeditems, feed, config)
 		bits["feeditems"] = feeditems.getvalue()
 		feeditems.close()
