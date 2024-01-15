@@ -386,7 +386,7 @@ class BasicAuthProcessor(urllib.request.BaseHandler):
 	for a 401/407 response first.)"""
 
 	def __init__(self, user, password, proxy=False):
-		self.auth = base64.b64encode(user + ":" + password)
+		self.auth = base64.b64encode((user + ":" + password).encode()).decode()
 		if proxy:
 			self.header = "Proxy-Authorization"
 		else:
