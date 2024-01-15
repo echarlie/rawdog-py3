@@ -65,7 +65,7 @@ def fetch_url(url):
     encodings = headers.get("Content-Encoding", "")
     encodings = [s.strip() for s in encodings.split(",")]
     if "gzip" in encodings:
-        f = gzip.GzipFile(fileobj=io.StringIO(data))
+        f = gzip.GzipFile(fileobj=io.BytesIO(data))
         data = f.read()
         f.close()
 
