@@ -1590,7 +1590,7 @@ __feeditems__
 	def show_template(self, name, config):
 		"""Show the contents of a template, as currently configured."""
 		try:
-			print(self.get_template(config, name), end=' ')
+			print(self.get_template(config, name), end='')
 		except KeyError:
 			print("Unknown template name: " + name, file=sys.stderr)
 
