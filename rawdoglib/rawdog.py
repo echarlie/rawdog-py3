@@ -56,7 +56,7 @@ except:
 try:
 	_resolveRelativeURIs = feedparser.urls.resolve_relative_uris
 except AttributeError:
-	_resolveRelativeURIs = feedparser._resolveRelativeURIs
+	_resolveRelativeURIs = feedparser.resolve_relative_uris
 try:
 	_HTMLSanitizer = feedparser.sanitizer._HTMLSanitizer
 except AttributeError:
@@ -139,8 +139,8 @@ def sanitise_html(html, baseurl, inline, config):
 		args = {
 			"numeric_entities": 1,
 			# In tidy 0.99 these are ASCII; in tidy 5, UTF-8.
-			"input_encoding": "ascii",
-			"output_encoding": "ascii",
+			"input_encoding": "utf8",
+			"output_encoding": "utf8",
 			"output_html": 1,
 			"output_xhtml": 0,
 			"output_xml": 0,
@@ -314,14 +314,13 @@ def load_file(name):
 	return file_cache[name]
 
 def write_ascii(f, s, config):
-	"""Write the string s, which should only contain ASCII characters, to
-	file f; if it isn't encodable in ASCII, then print a warning message
-	and write UTF-8."""
-	#try:
+	"""Write the string s, in UTF-8 not ascii. Name has been kept to not
+		break funcitonality."""
+	
 	f.write(s)
-	#except UnicodeEncodeError as e:
-		#config.bug("Error encoding output as ASCII; UTF-8 has been written instead.\n", e)
-		#f.write(s.encode("UTF-8"))
+
+def write_utf_8(f, s, config):
+	"""After failing to write ascii, use utf"""
 
 def short_hash(s):
 	"""Return a human-manipulatable 'short hash' of a string."""
@@ -1522,7 +1521,7 @@ class Rawdog(Persistable):
    "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta http-equiv="Content-Type" content="text/html">
     <meta name="robots" content="noindex,nofollow,noarchive">
 """
 			if config["userefresh"]:
