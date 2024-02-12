@@ -52,9 +52,9 @@ try:
 except:
 	mxtidy = None
 
-# The sanitisation code was restructured in feedparser 5.3.
+# The sanitisation code was restructured in feedparser 6.
 try:
-	_resolveRelativeURIs = feedparser.urls._resolveRelativeURIs
+	_resolveRelativeURIs = feedparser.urls.resolve_relative_uris
 except AttributeError:
 	_resolveRelativeURIs = feedparser._resolveRelativeURIs
 try:
@@ -502,14 +502,14 @@ class Feed:
 		# Turn off content-cleaning, as we need the original content
 		# for hashing and we'll do this ourselves afterwards.
 		if hasattr(feedparser, "api"):
-			# feedparser >= 5.3
+			# feedparser > 5.2
 			parse_args["sanitize_html"] = False
 			parse_args["resolve_relative_uris"] = False
 		else:
-			# feedparser < 5.3
+			# feedparser <= 5.2
 			feedparser.RESOLVE_RELATIVE_URIS = 0
 			feedparser.SANITIZE_HTML = 0
-			# Microformat support (removed in 5.3) tends to return
+			# Microformat support (removed in version 6) tends to return
 			# poor-quality data, and relies on BeautifulSoup which
 			# is unable to parse many feeds.
 			feedparser.PARSE_MICROFORMATS = 0
