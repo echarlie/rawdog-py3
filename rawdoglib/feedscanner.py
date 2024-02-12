@@ -40,6 +40,13 @@ import urllib.request, urllib.error, urllib.parse
 import urllib.parse
 import html.parser
 
+try:
+    # This exists in python <3.5, and in python <3.3 it could actually be raised.
+    from html.parser import HTMLParseError
+except ImportError:
+    # This is what python 3.11's html.parser does when given very broken HTML.
+    HTMLParseError = AssertionError
+
 def is_feed(url):
     """Return true if feedparser can understand the given URL as a feed."""
 
@@ -65,7 +72,7 @@ def fetch_url(url):
     encodings = headers.get("Content-Encoding", "")
     encodings = [s.strip() for s in encodings.split(",")]
     if "gzip" in encodings:
-        f = gzip.GzipFile(fileobj=io.StringIO(data))
+        f = gzip.GzipFile(fileobj=io.BytesIO(data))
         data = f.read()
         f.close()
 
@@ -129,7 +136,7 @@ def feeds(page_url):
     parser = FeedFinder(page_url)
     try:
         parser.feed(data)
-    except html.parser.HTMLParseError:
+    except HTMLParseError:
         pass
     found = parser.urls()
 

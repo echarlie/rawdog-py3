@@ -29,7 +29,7 @@ behaviour is highly customisable using plugins written in Python.
 rawdog has the following dependencies:
 
 - Python 3
-- feedparser 5.1.2, less than 6.0
+- feedparser 5.1.2
 - PyTidyLib 0.2.1 or later (optional but strongly recommended)
 
 To install rawdog on your system, use setuptools -- `python setup.py

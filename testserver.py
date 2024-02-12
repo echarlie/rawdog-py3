@@ -14,11 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import BaseHTTPServer
-import SimpleHTTPServer
-import SocketServer
+import http.server
+import http.server
+import socketserver
 import base64
-import cStringIO
+import io
 import gzip
 import hashlib
 import os
@@ -27,18 +27,18 @@ import sys
 import threading
 import time
 
-class TimeoutRequestHandler(SocketServer.BaseRequestHandler):
+class TimeoutRequestHandler(socketserver.BaseRequestHandler):
     """Request handler for a server that just does nothing for a few
     seconds, then disconnects. This is used for testing timeout handling."""
 
     def handle(self):
         time.sleep(5)
 
-class TimeoutServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
+class TimeoutServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     """Timeout server for rawdog's test suite."""
     pass
 
-class HTTPRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+class HTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     """HTTP request handler for rawdog's test suite."""
 
     # do_GET/do_HEAD are copied from SimpleHTTPServer because send_head isn't
@@ -70,7 +70,7 @@ class HTTPRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         m = re.match(r'^/auth-([^/-]+)-([^/]+)(/.*)$', self.path)
         if m:
             # Require basic authentication.
-            auth = "Basic " + base64.b64encode(m.group(1) + ":" + m.group(2))
+            auth = "Basic " + base64.b64encode((m.group(1) + ":" + m.group(2)).encode()).decode()
             if self.headers.get("Authorization") != auth:
                 self.send_response(401)
                 self.end_headers()
@@ -162,7 +162,7 @@ class HTTPRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
                 if encoding == "gzip":
                     data = f.read()
                     f.close()
-                    f = cStringIO.StringIO()
+                    f = io.BytesIO()
                     g = gzip.GzipFile(fileobj=f, mode="wb")
                     g.write(data)
                     g.close()
@@ -185,17 +185,17 @@ class HTTPRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         f.write(fmt % args + "\n")
         f.close()
 
-class HTTPServer(BaseHTTPServer.HTTPServer):
+class HTTPServer(http.server.HTTPServer):
     """HTTP server for rawdog's test suite."""
 
     def __init__(self, base_url, files_dir, *args, **kwargs):
         self.base_url = base_url
         self.files_dir = files_dir
-        BaseHTTPServer.HTTPServer.__init__(self, *args, **kwargs)
+        http.server.HTTPServer.__init__(self, *args, **kwargs)
 
 def main(args):
     if len(args) < 3:
-        print "Usage: testserver.py HOSTNAME TIMEOUT-PORT HTTP-PORT FILES-DIR"
+        print("Usage: testserver.py HOSTNAME TIMEOUT-PORT HTTP-PORT FILES-DIR")
         sys.exit(1)
 
     hostname = args[0]
