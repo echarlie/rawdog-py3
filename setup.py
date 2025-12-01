@@ -11,7 +11,7 @@ setup(name="rawdog",
 	scripts=['rawdog'],
 	data_files=[('share/man/man1', ['rawdog.1'])],
 	python_requires='>=3',
-	install_requires=['feedparser>5.1.2'],
+	install_requires=['feedparser'],
 	packages=['rawdoglib'],
 	classifiers=[
 		"Development Status :: 5 - Production/Stable",
