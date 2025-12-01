@@ -25,7 +25,6 @@ from rawdoglib.plugins import Box, call_hook, load_plugins
 from io import StringIO
 import base64
 import calendar
-import cgi
 import feedparser
 import getopt
 import hashlib
