@@ -18,7 +18,9 @@
 # Vellum weblog system:
 #   http://www.kryogenix.org/code/vellum/
 
-import imp
+from importlib.machinery import SOURCE_SUFFIXES
+from importlib.util import spec_from_file_location, module_from_spec
+import sys
 import os
 
 class Box:
@@ -43,18 +45,27 @@ def load_plugins(dir, config):
 			continue
 
 		desc = None
-		for d in imp.get_suffixes():
-			if file.endswith(d[0]) and d[2] == imp.PY_SOURCE:
+		for d in SOURCE_SUFFIXES:
+			if file.endswith(d):
 				desc = d
 		if desc is None:
 			continue
 
 		fn = os.path.join(dir, file)
 		config.log("Loading plugin ", fn)
-		f = open(fn, "r")
-		imp.load_module("plugin%d" % (plugin_count,), f, fn, desc)
+
+		# See https://docs.python.org/3.11/library/importlib.html#approximating-importlib-import-module
+		module_name = f"plugin{plugin_count}"
+		spec = spec_from_file_location(module_name, fn)
+		if spec is None or spec.loader is None:
+			config.log(f"There was a problem loading {fn}, skipping...")
+			continue
+
+		module = module_from_spec(spec)
+		sys.modules[module_name] = module
+		spec.loader.exec_module(module)
+
 		plugin_count += 1
-		f.close()
 
 attached = {}
 
